@@ -1,0 +1,14 @@
+import { IArticle } from '../types';
+export declare function findLike(articleId: string, token: string): Promise<boolean>;
+export declare function like(state: boolean, articleId: string, articleName: string, token: string): Promise<string>;
+export declare function comment(articleId: string, token: string, content: string): Promise<string>;
+export declare function view(articleId: string): Promise<string>;
+export declare function removeComment(id: string): Promise<string>;
+export declare function post(article: IArticle, token: string): Promise<string>;
+export declare function edit(id: string, article: IArticle, token: string): Promise<string>;
+export declare function remove(_id: string, token: string): Promise<string>;
+export declare function search(str: string): Promise<import("bson").Document[]>;
+export declare function detail(id: string): Promise<import("bson").Document[]>;
+export declare function comments(articleId: string): Promise<import("bson").Document[]>;
+export declare function upload(path: string, size: number, name: string): Promise<string>;
+export declare function download(key: string): Promise<import("mongodb").WithId<import("../types").IFile>>;
