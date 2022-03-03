@@ -4,6 +4,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import style from "./style.module.css";
 import IconFont from "../../assets/icon";
+import * as userAPI from "../../services/user.service";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -12,25 +13,27 @@ export default function Login() {
 
   async function submit() {
     // 登录API
+    const loginRes = await userAPI.login(username, password, role);
   }
+
+  useEffect(()=>{
+    
+  },[])
 
   return (
     <div className={style.wrap}>
       <div className={style.login}>
         <div className={style.left}>
           <div className={style.item}>
-            <IconFont
-              className={style.icon}
-              type="icon-songmenhuwangzhan"
-            ></IconFont>
-            <Link to="/">进入官网 {'>'}</Link>
+            <IconFont className={style.icon} type="icon-songmenhuwangzhan" />
+            <Link to="/">进入官网 {">"}</Link>
           </div>
           <div className={style.item}>
-            <IconFont className={style.icon} type="icon-xiaoxi"></IconFont>
+            <IconFont className={style.icon} type="icon-xiaoxi" />
             {role === "employee" ? "发现职场牛人" : "投递简历及时沟通"}
           </div>
           <div className={style.item}>
-            <IconFont className={style.icon} type="icon-lingdai"></IconFont>{" "}
+            <IconFont className={style.icon} type="icon-lingdai" />
             {role === "employee" ? "人才搜寻宝库" : "各种职位任你挑选"}
           </div>
         </div>
@@ -90,7 +93,12 @@ export default function Login() {
 
             <Form.Item>
               <Button className={style.button}>去注册 {">"}</Button>
-              <Button className={style.submit} type="primary" htmlType="submit">
+              <Button
+                className={style.submit}
+                onClick={submit}
+                type="primary"
+                htmlType="submit"
+              >
                 登录
               </Button>
             </Form.Item>
