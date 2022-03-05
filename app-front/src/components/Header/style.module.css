@@ -1,0 +1,37 @@
+.wrap {
+  height: 60px;
+  border-bottom: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.none {
+    display: none;
+}
+
+.logo {
+  color: rgb(24, 144, 255);
+  font-weight: 700;
+  font-size: 35px;
+  margin-left: 50px;
+}
+
+.right{
+    margin-right: 50px;
+}
+
+.button {
+  width: 100px;
+  margin-left: 15px;
+  margin-right: 15px;
+  float: right;
+}
+
+
+.menu{
+  line-height: 61px;
+  border-bottom: 1px solid rgb(136, 136, 136);
+  flex: 1;
+  margin-left: 60px;
+}

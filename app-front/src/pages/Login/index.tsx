@@ -26,7 +26,7 @@ export default function Login() {
         <div className={style.left}>
           <div className={style.item}>
             <IconFont className={style.icon} type="icon-songmenhuwangzhan" />
-            <Link to="/">进入官网 {">"}</Link>
+            <Link to="/main">进入官网 {">"}</Link>
           </div>
           <div className={style.item}>
             <IconFont className={style.icon} type="icon-xiaoxi" />
