@@ -1,16 +1,2 @@
 import { ObjectId } from "mongodb";
-import { IUser } from "../types";
 export declare const tokens: Map<string, ObjectId>;
-export declare function register(record: IUser): Promise<ObjectId>;
-export declare function login(record: IUser): Promise<string>;
-export declare function userInfo(token: string): Promise<import("mongodb").WithId<IUser>>;
-export declare function getInfo(id: string): Promise<import("mongodb").WithId<IUser>>;
-export declare function editInfo(token: string, record: IUser): Promise<import("mongodb").ModifyResult<IUser>>;
-export declare function editPwd(token: string, prePassword: string, newPassword: string): Promise<import("mongodb").ModifyResult<IUser>>;
-export declare function findFollow(userId: string, token: string): Promise<boolean>;
-export declare function follow(state: boolean, userId: string, token: string): Promise<"已取消关注" | "已关注">;
-export declare function likes(id: string): Promise<import("bson").Document[]>;
-export declare function comments(id: string): Promise<import("mongodb").WithId<import("../types").IComment>[]>;
-export declare function userFollows(id: string): Promise<import("mongodb").WithId<import("../types").IFollow>[]>;
-export declare function articles(id?: string): Promise<import("bson").Document[]>;
-export declare function upload(token: string, path: string, size: number, name: string): Promise<string>;

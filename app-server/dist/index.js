@@ -13,14 +13,14 @@ app.use(async (ctx, next) => {
         const start = Date.now();
         await next();
         const time = Date.now() - start;
-        ctx.set('X-Response-Time', time + 'ms');
+        ctx.set("X-Response-Time", time + "ms");
     }
     catch (error) {
         if (error instanceof stats_1.ReqStat) {
             ctx.status = error.statusCode || 500;
             ctx.body = {
                 stat: error.stat,
-                message: error.msg
+                message: error.msg,
             };
         }
         else {
@@ -34,8 +34,8 @@ app.use(logger_1.default);
 app.use(koaBody({
     multipart: true,
     formidable: {
-        maxFieldsSize: config_1.default.uploadSizeLimit
-    }
+        maxFieldsSize: config_1.default.uploadSizeLimit,
+    },
 }));
 app.use(router_1.default.routes());
 db.connect().then(() => app.listen(config_1.default.port, () => {

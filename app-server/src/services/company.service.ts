@@ -5,4 +5,7 @@ import { IUser } from "../types";
 import { stats } from "../stats";
 import * as fs from "fs";
 
-export const tokens = new Map<string, ObjectId>();
+// 职位列表
+export async function companyList(value: string = "") {
+  return;
+}
