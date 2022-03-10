@@ -25,6 +25,7 @@ async function jobList(value = "") {
             },
         },
     ])
+        .limit(10)
         .toArray();
     return result;
 }

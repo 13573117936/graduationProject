@@ -29,6 +29,7 @@ export async function jobList(value: string = "") {
         },
       },
     ])
+    .limit(10)
     .toArray();
   return result;
 }

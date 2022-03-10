@@ -5,7 +5,7 @@ import { IUser } from "../types";
 import { stats } from "../stats";
 import * as fs from "fs";
 
-// 职位列表
+// 公司列表
 export async function companyList(value: string = "") {
   return;
 }

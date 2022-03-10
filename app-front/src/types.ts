@@ -1,30 +1,5 @@
 import { Binary } from "mongodb";
 
-/**
- * 权限
- */
-export enum UserRole {
-  /**
-   * 招聘人
-   */
-  Employer = 1,
-  /**
-   * 应聘人
-   */
-  User = 2,
-}
-
-export enum UserSex {
-  /**
-   * 男
-   */
-  Man = 1,
-  /**
-   * 女
-   */
-  Woman = 2,
-}
-
 export interface IUser {
   // id
   _id: string;
@@ -54,97 +29,127 @@ export interface IUser {
   role: UserRole;
 }
 
+/**
+ * 职位信息（关联公司信息、招聘人信息
+ */
 export interface IJob {
-  
   // id
   _id: string;
-  
+
   // 职位名称
   positionName: string;
-  
+
   // 薪资范围
   salary: { min: number; max: number };
-  
+
   // 城市
   city: string;
-  
+
   // 工作经验限制
   workYear: Year;
-  
+
   //最低学历
   education: Education;
-  
+
   // 公司id
   companyId: string;
-  
+
   // 信息创建时间
   time: string;
- 
+
   // 信息更新时间
   updatedAt: string;
-  
+
   // 详细地址
   location: string;
-  
+
   // 招聘人id
   interviewerId: string;
-  
+
   // 描述词
   keyWords: string[];
-  
+
   // 职位描述
   describe: string;
-  
+
   // 公司信息
   companys: ICompany[];
-  
+
   // 发布人信息
   users: IUser[];
-  userInfo: IUser[];
 }
 
+/**
+ * 公司信息（关联招聘职位列表
+ */
 export interface ICompany {
-  
   // id
-  _id?: string;
-  
+  _id: string;
+
   // 公司简称
   companyShortName: string;
-  
+
   // 公司全称
   companyFullName: string;
-  
+
   // 公司创始人id
   userId: string;
-  
+
   // 公司规模
   companySize: companySize;
-  
+
   // 行业分类
   industryField: string;
-  
+
   // 信息创建时间
   time: string;
-  
+
   // 信息更新时间
   updateAt: string;
-  
+
   // logo图地址
   logo: string;
-  
+
   // 融资情况
   financeStage: FinanceStage;
-  
-  // 简洁
+
+  // 简介
   describe: string;
-  
+
   // 热度
   like: string;
-  
+
   // 热招职位
-  recruits: IJob[];
+  jobs: IJob[];
 }
 
+/**
+ * 权限
+ */
+export enum UserRole {
+  /**
+   * 招聘人
+   */
+  Employer = 1,
+  /**
+   * 应聘人
+   */
+  User = 2,
+}
+
+/**
+ * 性别
+ */
+export enum UserSex {
+  /**
+   * 男
+   */
+  Man = 1,
+  /**
+   * 女
+   */
+  Woman = 2,
+}
 
 /**
  * 学历范围
@@ -207,15 +212,15 @@ export enum Year {
   /**
    * 1-3年
    */
-  WithinThree = 5,
+  withinThree = 5,
   /**
    * 3-5年
    */
-  WithinFive = 6,
+  withinFive = 6,
   /**
    *5-10年
    */
-  Withinten = 7,
+  withinten = 7,
   /**
    * 十年以上
    */
@@ -267,7 +272,7 @@ export enum FinanceStage {
   /**
    *未融资
    */
-  Unfunded = 2,
+  unfunded = 2,
   /**
    *天使轮
    */
