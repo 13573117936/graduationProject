@@ -8,7 +8,7 @@
 }
 
 .item:hover {
-  box-shadow: 5px 5px 5px #dfdfdf;
+  box-shadow: 0px 0px 10px 3px #dfdfdf;
   transition: box-shadow ease-in-out 0.2s;
 }
 
@@ -66,8 +66,8 @@
   align-items: center;
 }
 
-img {
-  width: 30px !important;
+.img {
+  width: 30px ;
   height: 30px;
 }
 

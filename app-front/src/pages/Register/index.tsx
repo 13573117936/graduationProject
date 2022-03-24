@@ -13,7 +13,8 @@ export default function Register() {
 
   async function submit() {
     // 登录API
-    const loginRes = await userAPI.login(username, password, role);
+    const registerRes = await userAPI.register(username, password, role);
+    console.log(registerRes);
   }
 
   useEffect(() => {}, []);

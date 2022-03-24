@@ -1,24 +1,33 @@
-import react, { useEffect, useState, useCallback } from "react";
+import react, { useEffect, useState, useCallback, useRef } from "react";
 import "antd/dist/antd.css";
-import { Form, Input, Button, Checkbox } from "antd";
-import { Link } from "react-router-dom";
+import { Form, Input, Button, Checkbox, FormInstance } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 import IconFont from "../../assets/icon";
 import * as userAPI from "../../services/user.service";
+import Toast from "../../components/Toast";
+
+interface Values {
+  username: string;
+  password: string;
+  role: string;
+}
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("employee");
-
+  const navigate = useNavigate();
   async function submit() {
     // 登录API
     const loginRes = await userAPI.login(username, password, role);
+    if (loginRes.stat !== "OK") {
+      Toast(loginRes.message);
+    } else {
+      navigate("/main");
+    }
   }
-
-  useEffect(()=>{
-    
-  },[])
+  useEffect(() => {}, []);
 
   return (
     <div className={style.wrap}>
@@ -45,6 +54,7 @@ export default function Login() {
             name="basic"
             initialValues={{ remember: true }}
             autoComplete="off"
+            /* onFinish={onFinish} */
           >
             <Form.Item>
               <span
@@ -86,8 +96,7 @@ export default function Login() {
               />
             </Form.Item>
 
-            <Form.Item name="remember" valuePropName="checked">
-              <Checkbox className={style.checkBox}>记住我</Checkbox>
+            <Form.Item>
               <Link to="/">忘记密码？</Link>
             </Form.Item>
 

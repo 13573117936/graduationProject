@@ -6,7 +6,7 @@ export interface BaseRes {
   message: string;
 }
 
-export interface Result {
+export interface Result extends BaseRes {
   result: string;
 }
 
@@ -15,22 +15,31 @@ interface UserInfo extends BaseRes {
 }
 
 // 注册
-export async function register(username: string, password: string) {
+export async function register(
+  username: string, // 账号
+  password: string, // 密码
+  role: string // 权限
+) {
   const res = await axios.post<Result>("/api/user/register", {
-    username,
-    password,
-  });
-  return res.data;
-}
-
-// 登录
-export async function login(username: string, password: string, role: string) {
-  const res = await axios.post<Result>("/api/user/login", {
     username,
     password,
     role,
   });
   return res.data;
+}
+
+// 登录
+export async function login(
+  username: string, // 账号
+  password: string, // 密码
+  role: string // 权限
+) {
+  const result = await axios.post<Result>("/api/user/login", {
+    username,
+    password,
+    role,
+  });
+  return result.data;
 }
 
 // 获取用户信息

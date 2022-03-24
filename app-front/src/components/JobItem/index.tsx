@@ -26,8 +26,8 @@ export default function JobItem(props: Props) {
         </p>
       </Link>
 
-      <Link to={"main"} className={style.company}>
-        <img src={props.item.companys[0].logo} alt="" />
+      <Link to={"/main"} className={style.company}>
+        <img src={props.item.companys[0].logo} className={style.img} alt="" />
         <span className={style.companyName}>
           {props.item.companys[0].companyShortName}
         </span>
