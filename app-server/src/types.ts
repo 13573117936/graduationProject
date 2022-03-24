@@ -1,4 +1,4 @@
-import { Binary } from "mongodb";
+import { Binary, ObjectId } from "mongodb";
 
 /**
  * 权限
@@ -26,9 +26,6 @@ export enum UserSex {
 }
 
 export interface IUser {
-  // id
-  _id: string;
-
   // 用户名(手机号)
   username: string;
 
@@ -55,9 +52,6 @@ export interface IUser {
 }
 
 export interface IJob {
-  // id
-  _id: string;
-
   // 职位名称
   positionName: string;
 
@@ -74,7 +68,7 @@ export interface IJob {
   education: Education;
 
   // 公司id
-  companyId: string;
+  companyId: ObjectId;
 
   // 信息创建时间
   time: string;
@@ -93,18 +87,9 @@ export interface IJob {
 
   // 职位描述
   describe: string;
-
-  // 公司信息
-  companys: ICompany[];
-
-  // 发布人信息
-  users: IUser[];
 }
 
 export interface ICompany {
-  // id
-  _id?: string;
-
   // 公司简称
   companyShortName: string;
 
@@ -137,9 +122,6 @@ export interface ICompany {
 
   // 热度
   like: string;
-
-  // 热招职位
-  recruits: IJob[];
 }
 
 /**

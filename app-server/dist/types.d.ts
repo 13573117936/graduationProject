@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 export declare enum UserRole {
     Employer = 1,
     User = 2
@@ -7,7 +8,6 @@ export declare enum UserSex {
     Woman = 2
 }
 export interface IUser {
-    _id: string;
     username: string;
     password: string;
     avatar: string;
@@ -18,7 +18,6 @@ export interface IUser {
     role: UserRole;
 }
 export interface IJob {
-    _id: string;
     positionName: string;
     salary: {
         min: number;
@@ -27,18 +26,15 @@ export interface IJob {
     city: string;
     workYear: Year;
     education: Education;
-    companyId: string;
+    companyId: ObjectId;
     time: string;
     updatedAt: string;
     location: string;
     interviewerId: string;
     keyWords: string[];
     describe: string;
-    companys: ICompany[];
-    users: IUser[];
 }
 export interface ICompany {
-    _id?: string;
     companyShortName: string;
     companyFullName: string;
     userId: string;
@@ -50,7 +46,6 @@ export interface ICompany {
     financeStage: FinanceStage;
     describe: string;
     like: string;
-    recruits: IJob[];
 }
 export declare enum Education {
     unlimit = 1,
