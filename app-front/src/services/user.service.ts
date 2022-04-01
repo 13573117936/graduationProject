@@ -6,13 +6,19 @@ export interface BaseRes {
   message: string;
 }
 
-export interface Result extends BaseRes {
+export interface TokenResult extends BaseRes {
+  token: string;
+}
+
+export interface StringResult extends BaseRes {
   result: string;
 }
 
-interface UserInfo extends BaseRes {
+export interface UserInfo extends BaseRes {
   data: IUser;
 }
+
+
 
 // 注册
 export async function register(
@@ -20,7 +26,7 @@ export async function register(
   password: string, // 密码
   role: string // 权限
 ) {
-  const res = await axios.post<Result>("/api/user/register", {
+  const res = await axios.post<TokenResult>("/api/user/register", {
     username,
     password,
     role,
@@ -34,7 +40,7 @@ export async function login(
   password: string, // 密码
   role: string // 权限
 ) {
-  const result = await axios.post<Result>("/api/user/login", {
+  const result = await axios.post<TokenResult>("/api/user/login", {
     username,
     password,
     role,
@@ -44,6 +50,14 @@ export async function login(
 
 // 获取用户信息
 export async function userInfo() {
-  const result = await axios.post<UserInfo>("/api/user/front/getInfo");
+  const result = await axios.post<UserInfo>("/api/user/userInfo");
   return result.data;
+}
+
+// 头像上传
+export async function userAvatar(file: File) {
+  const data = new FormData()
+  data.append('file', file)
+  const result = await axios.post('/api/user/upload', data)
+  return result.data
 }

@@ -7,7 +7,7 @@
 }
 
 .none {
-    display: none;
+  display: none;
 }
 
 .logo {
@@ -17,8 +17,10 @@
   margin-left: 50px;
 }
 
-.right{
-    margin-right: 50px;
+.right {
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .button {
@@ -28,10 +30,15 @@
   float: right;
 }
 
-
-.menu{
+.menu {
   line-height: 61px;
   border-bottom: 1px solid rgb(136, 136, 136);
   flex: 1;
   margin-left: 60px;
+}
+
+.icon {
+  font-size: 25px;
+  margin-left: 5px;
+  cursor: pointer;
 }

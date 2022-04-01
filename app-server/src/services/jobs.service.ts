@@ -3,10 +3,15 @@ import * as db from "../db";
 import * as crypto from "crypto";
 import { IUser } from "../types";
 import { stats } from "../stats";
+import { tokens } from "./user.service";
 import * as fs from "fs";
 
 // 职位列表
-export async function jobList(value: string = "") {
+export async function jobList(
+  limit: number,
+  value: string = "",
+  skip: number = 0
+) {
   const result = await db.jobCollection
     .aggregate([
       {
@@ -29,7 +34,8 @@ export async function jobList(value: string = "") {
         },
       },
     ])
-    .limit(9)
+    .skip(skip)
+    .limit(limit)
     .toArray();
   return result;
 }
@@ -61,4 +67,37 @@ export async function getDetail(_id: string) {
     .toArray();
   if (!result[0]) throw stats.ERR_NOT_FOUND;
   return result[0];
+}
+
+// 查看是否已收藏
+export async function findFavorite(jobId: string, token: string) {
+  const id = tokens.get(token);
+  if (!id) return false;
+
+  const res = await db.favoriteCollection.findOne({
+    userId: new ObjectId(id),
+    jobId: new ObjectId(jobId),
+  });
+  return res ? true : false;
+}
+
+// 收藏、取消收藏
+export async function doFavorite(state: boolean, jobId: string, token: string) {
+  const id = tokens.get(token);
+  if (!id) throw stats.ERR_NOT_LOGIN;
+
+  if (state) {
+    await db.favoriteCollection.findOneAndDelete({
+      userId: new ObjectId(id),
+      jobId: new ObjectId(jobId),
+    });
+    return false;
+  } else {
+    await db.favoriteCollection.insertOne({
+      userId: new ObjectId(id),
+      jobId: new ObjectId(jobId),
+      time: new Date(),
+    });
+    return true;
+  }
 }

@@ -1,0 +1,16 @@
+/*boss直聘个人页面css文件*/
+.back{
+    background-color: #fff;
+}
+
+.siteLayout {
+  overflow: auto;
+  height: 100vh;
+  width: 200px;
+}
+
+.content {
+  margin: 0;
+  min-height: 280px;
+  background-color: #fff;
+}

@@ -9,7 +9,7 @@
 
 .item:hover {
   box-shadow: 0px 0px 10px 3px #dfdfdf;
-  transition: box-shadow ease-in-out 0.1s;
+  transition: box-shadow ease-out 0.1s;
 }
 
 .subTop {
@@ -100,21 +100,11 @@
 }
 
 /* bigItem */
-.link {
-  width: 1000px;
-  border-bottom: 1px #f2f2f5 solid;
-}
-.link:hover {
-  border: none;
-  box-shadow: 0px 0px 10px 3px #dfdfdf;
-  transition: box-shadow ease-in-out 0.1s;
-}
 .bigItem {
   padding: 18px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
 }
 
 .top {
@@ -128,7 +118,7 @@
 }
 
 .jobTitle {
-  color: rgb(24, 144, 255);
+  color: #00c2b3;
   font-weight: 400;
   display: inline-block;
   white-space: nowrap;
@@ -144,11 +134,8 @@
   font-size: 16px;
 }
 
-.salary2 {
-  color: #fd7240;
-  line-height: normal;
-  text-align: right;
-  max-width: none;
+.salary {
+  color: #fc703e !important;
 }
 
 .subBottom2 {
@@ -157,44 +144,5 @@
   margin-right: 13px;
   margin-top: 0;
   max-width: 169px;
-  color: #61687c;
-}
-
-.rightInfo {
-  width: 300px;
-  margin-left: 100px;
-}
-
-.companyName2 {
-  font-size: 16px;
-  font-weight: 400;
-  margin-bottom: 3px;
-  overflow: visible;
-}
-
-.grayText {
-  color: #61687c;
-  max-width: 270px;
-  font-size: 12px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.bot {
-  padding: 13px 20px;
-  margin-bottom: 15px;
-  background: #f8f9fc;
-}
-
-.keyWord {
-  font-size: 12px;
-  height: 21px;
-  line-height: 21px;
-  padding: 0 8px;
-  border: 1px solid #eee;
-  border-radius: 2px;
-  display: inline-block;
-  margin-right: 10px;
   color: #61687c;
 }

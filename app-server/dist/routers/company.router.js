@@ -8,10 +8,18 @@ const router = new Router({
     prefix: "/api/company",
 });
 router.post("/companyList", async (ctx) => {
-    const result = await companyService.companyList();
+    const schema = Joi.object({
+        value: Joi.string(),
+        skip: Joi.number(),
+        limit: Joi.number().required(),
+    });
+    const { value, error } = schema.validate(ctx.request.body);
+    if (error)
+        throw stats_1.badParams(error.message);
+    const result = await companyService.companyList(value.limit, value.value, value.skip);
     ctx.body = {
         stat: "OK",
-        result: result,
+        list: result,
     };
 });
 router.post("/detail", async (ctx) => {
@@ -24,8 +32,21 @@ router.post("/detail", async (ctx) => {
     const [result, jobs] = await companyService.getDetail(value.id);
     ctx.body = {
         stat: "OK",
-        result,
-        jobs,
+        data: result,
+        jobs: jobs,
+    };
+});
+router.post("/number", async (ctx) => {
+    const schema = Joi.object({
+        id: Joi.string().required(),
+    });
+    const { value, error } = schema.validate(ctx.request.body);
+    if (error)
+        throw stats_1.badParams(error.message);
+    const number = await companyService.getNumber(value.id);
+    ctx.body = {
+        stat: "OK",
+        result: number,
     };
 });
 exports.default = router;

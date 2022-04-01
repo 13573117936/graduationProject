@@ -25,7 +25,7 @@ function badParams(message) {
 exports.badParams = badParams;
 exports.stats = {
     ERR_EXISTS: new ReqStat("ERR_EXISTS", "记录已存在"),
-    ERR_NOT_FOUND: new ReqStat("ERR_NOT_FOUND", "记录不存在", Status.NotFound),
+    ERR_NOT_FOUND: new ReqStat("ERR_NOT_FOUND", "记录不存在"),
     ERR_USER_NOT_FOUND: new ReqStat("ERR_USER_NOT_FOUND", "找不到指定用户"),
     ERR_NOT_LOGIN: new ReqStat("ERR_NOT_LOGIN", "用户未登录"),
     ERR_LOGIN_FAILED: new ReqStat("ERR_LOGIN_FAILED", "密码不正确"),

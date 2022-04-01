@@ -1,21 +1,34 @@
-import react, { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import style from "./style.module.css";
 import { Input, Select } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export default function Search() {
   const { Search } = Input;
   const { Option } = Select;
-  const [text, setText] = useState("");
-  const onSearch = useCallback(() => {}, []);
-  const onChange = useCallback((value) => {
-    console.log(value);
-  }, []);
+  const navigate = useNavigate();
+  const [option, setOption] = useState("职位");
+  const [value, setValue] = useState("");
+
+  const onSearch = useCallback(() => {
+    console.log(1)
+    if (option === "职位") {
+      console.log(2)
+      navigate("/jobs/value=" + value);
+    } else {
+      console.log(3)
+      navigate("/companys/value=" + value);
+    }
+  }, [navigate, option, value]);
 
   return (
     <div className={style.wrap}>
       <Input.Group className={style.group} compact>
         <Select
-          onChange={onChange}
+          onChange={(value) => {
+            setOption(value);
+            console.log(value);
+          }}
           size="large"
           className={style.select}
           defaultValue="职位"
@@ -24,7 +37,7 @@ export default function Search() {
           <Option value="公司">公司</Option>
         </Select>
         <Search
-          onChange={(event) => setText(event.target.value)}
+          onChange={(event) => setValue(event.target.value)}
           className={style.input}
           placeholder="input search text"
           allowClear

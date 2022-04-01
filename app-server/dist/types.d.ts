@@ -1,12 +1,4 @@
 import { ObjectId } from "mongodb";
-export declare enum UserRole {
-    Employer = 1,
-    User = 2
-}
-export declare enum UserSex {
-    Man = 1,
-    Woman = 2
-}
 export interface IUser {
     username: string;
     password: string;
@@ -46,6 +38,19 @@ export interface ICompany {
     financeStage: FinanceStage;
     describe: string;
     like: string;
+}
+export interface IFavorite {
+    userId: ObjectId;
+    time: Date;
+    jobId: ObjectId;
+}
+export declare enum UserRole {
+    Employer = 1,
+    User = 2
+}
+export declare enum UserSex {
+    Man = 1,
+    Woman = 2
 }
 export declare enum Education {
     unlimit = 1,

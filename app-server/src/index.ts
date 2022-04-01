@@ -7,6 +7,7 @@ import logger from "./middlewares/logger";
 import * as db from "./db";
 
 const app = new Koa();
+
 app.use(async (ctx, next) => {
   try {
     const start = Date.now();
@@ -42,3 +43,4 @@ db.connect().then(() =>
     console.log(`listening on http://0.0.0.0:${config.port}`);
   })
 );
+

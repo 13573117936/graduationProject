@@ -12,13 +12,19 @@ const router = new Router({
 router.post("/jobList", async (ctx) => {
   const schema = Joi.object({
     value: Joi.string(),
+    skip: Joi.number(),
+    limit: Joi.number().required(),
   });
   const { value, error } = schema.validate(ctx.request.body);
   if (error) throw badParams(error.message);
-  const result = await jobsService.jobList(value.value);
+  const result = await jobsService.jobList(
+    value.limit,
+    value.value,
+    value.skip
+  );
   ctx.body = {
     stat: "OK",
-    result: result,
+    list: result,
   };
 });
 
@@ -32,7 +38,38 @@ router.post("/detail", async (ctx) => {
   const result = await jobsService.getDetail(value.id);
   ctx.body = {
     stat: "OK",
-    result,
+    data: result,
+  };
+});
+
+// 查看是否收藏 √
+router.post("/favorite/find", async (ctx) => {
+  const token = ctx.cookies.get("token");
+  const schema = Joi.object({
+    jobId: Joi.string(),
+  });
+  const { value, error } = schema.validate(ctx.request.body);
+  if (error) throw badParams(error.message);
+  const result = await jobsService.findFavorite(value.articleId, token);
+  ctx.body = {
+    stat: "OK",
+    result: result,
+  };
+});
+
+// 收藏、取消 √
+router.post("/favorite/handle", async (ctx) => {
+  const token = ctx.cookies.get("token");
+  const schema = Joi.object({
+    state: Joi.boolean(),
+    jobId: Joi.string(),
+  });
+  const { value, error } = schema.validate(ctx.request.body);
+  if (error) throw badParams(error.message);
+  const result = await jobsService.doFavorite(value.state, value.jobId, token);
+  ctx.body = {
+    stat: "OK",
+    result: result,
   };
 });
 

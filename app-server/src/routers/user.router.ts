@@ -21,8 +21,8 @@ router.post("/register", async (ctx) => {
   /* const tokens = await userService.login(value); */
   ctx.set("Set-Cookie", `token=${tokens}; path=/; httpOnly; Max-age=604800`);
   ctx.body = {
-    stat: 'OK',
-    tokens,
+    stat: "OK",
+    token: tokens,
   };
 });
 
@@ -36,10 +36,10 @@ router.post("/login", async (ctx) => {
   const { value, error } = schema.validate(ctx.request.body);
   if (error) throw badParams(error.message);
   const tokens = await userService.login(value);
-  ctx.set("Set-Cookie", `token=${tokens}; path=/; httpOnly`);
+  ctx.set("Set-Cookie", `token=${tokens}; path=/; httpOnly; Max-age=604800`);
   ctx.body = {
     stat: "OK",
-    tokens,
+    token: tokens,
   };
 });
 
@@ -65,6 +65,31 @@ router.post("/detail", async (ctx) => {
     stat: "OK",
     data: result,
   };
+});
+
+// 图片上传
+router.post("/upload", async (ctx) => {
+  const token = ctx.cookies.get("token");
+  const file = Object.values(ctx.request.files)[0] as File;
+  const key = await userService.upload(token, file.path, file.size, file.name);
+  ctx.body = {
+    stat: "OK",
+    result: key,
+  };
+});
+
+/**
+ * 根据key下载文件
+ */
+router.get("/download/:key", async (ctx) => {
+  const key = ctx.params.key;
+  const file = await userService.download(key);
+  ctx.set("Content-Type", "application/octet-stream");
+  ctx.res.setHeader(
+    "Content-Disposition",
+    "attachment; filename=" + encodeURIComponent(file.name)
+  );
+  ctx.body = file.data.buffer;
 });
 
 export default router;

@@ -19,8 +19,8 @@ router.post("/register", async (ctx) => {
     const tokens = await userService.register(value);
     ctx.set("Set-Cookie", `token=${tokens}; path=/; httpOnly; Max-age=604800`);
     ctx.body = {
-        stat: 'OK',
-        tokens,
+        stat: "OK",
+        token: tokens,
     };
 });
 router.post("/login", async (ctx) => {
@@ -33,10 +33,10 @@ router.post("/login", async (ctx) => {
     if (error)
         throw stats_1.badParams(error.message);
     const tokens = await userService.login(value);
-    ctx.set("Set-Cookie", `token=${tokens}; path=/; httpOnly`);
+    ctx.set("Set-Cookie", `token=${tokens}; path=/; httpOnly; Max-age=604800`);
     ctx.body = {
         stat: "OK",
-        tokens,
+        token: tokens,
     };
 });
 router.post("/userInfo", async (ctx) => {

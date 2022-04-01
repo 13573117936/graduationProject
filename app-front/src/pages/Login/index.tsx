@@ -1,17 +1,11 @@
 import react, { useEffect, useState, useCallback, useRef } from "react";
 import "antd/dist/antd.css";
-import { Form, Input, Button, Checkbox, FormInstance } from "antd";
+import { Form, Input, Button } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 import IconFont from "../../assets/icon";
 import * as userAPI from "../../services/user.service";
 import Toast from "../../components/Toast";
-
-interface Values {
-  username: string;
-  password: string;
-  role: string;
-}
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -20,11 +14,15 @@ export default function Login() {
   const navigate = useNavigate();
   async function submit() {
     // 登录API
-    const loginRes = await userAPI.login(username, password, role);
-    if (loginRes.stat !== "OK") {
-      Toast(loginRes.message);
+    if (!username || !password) {
+      Toast("请输入用户名和密码");
     } else {
-      navigate("/main");
+      const loginRes = await userAPI.login(username, password, role);
+      if (loginRes.stat !== "OK") {
+        Toast(loginRes.message);
+      } else {
+        navigate("/main");
+      }
     }
   }
   useEffect(() => {}, []);
@@ -39,11 +37,11 @@ export default function Login() {
           </div>
           <div className={style.item}>
             <IconFont className={style.icon} type="icon-xiaoxi" />
-            {role === "employee" ? "发现职场牛人" : "投递简历及时沟通"}
+            {role === "employee" ? "投递简历及时沟通" : "发现职场牛人"}
           </div>
           <div className={style.item}>
             <IconFont className={style.icon} type="icon-lingdai" />
-            {role === "employee" ? "人才搜寻宝库" : "各种职位任你挑选"}
+            {role === "employee" ? "各种职位任你挑选" : "人才搜寻宝库"}
           </div>
         </div>
         <div className={style.right}>
@@ -54,7 +52,6 @@ export default function Login() {
             name="basic"
             initialValues={{ remember: true }}
             autoComplete="off"
-            /* onFinish={onFinish} */
           >
             <Form.Item>
               <span
@@ -101,7 +98,14 @@ export default function Login() {
             </Form.Item>
 
             <Form.Item>
-              <Button className={style.button}>去注册 {">"}</Button>
+              <Button
+                onClick={() => {
+                  navigate("/register");
+                }}
+                className={style.button}
+              >
+                去注册 {">"}
+              </Button>
               <Button
                 className={style.submit}
                 onClick={submit}

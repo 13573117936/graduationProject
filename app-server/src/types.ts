@@ -1,30 +1,8 @@
 import { Binary, ObjectId } from "mongodb";
 
 /**
- * 权限
+ * 用户
  */
-export enum UserRole {
-  /**
-   * 招聘人
-   */
-  Employer = 1,
-  /**
-   * 应聘人
-   */
-  User = 2,
-}
-
-export enum UserSex {
-  /**
-   * 男
-   */
-  Man = 1,
-  /**
-   * 女
-   */
-  Woman = 2,
-}
-
 export interface IUser {
   // 用户名(手机号)
   username: string;
@@ -51,6 +29,9 @@ export interface IUser {
   role: UserRole;
 }
 
+/**
+ * 职位
+ */
 export interface IJob {
   // 职位名称
   positionName: string;
@@ -89,6 +70,9 @@ export interface IJob {
   describe: string;
 }
 
+/**
+ * 公司
+ */
 export interface ICompany {
   // 公司简称
   companyShortName: string;
@@ -122,6 +106,72 @@ export interface ICompany {
 
   // 热度
   like: string;
+}
+
+/**
+ * 收藏
+ */
+ export interface ICollection {
+  /**
+   * 用户ID
+   */
+  userId: ObjectId
+  /**
+   * 收藏时间
+   */
+  time: Date
+  /**
+   * 职位ID
+   */
+  jobId: ObjectId
+}
+
+/**
+ * 图片表
+ */
+ export interface IFile {
+  key: string
+  /**
+   * 文件二进制数据
+   */
+  data: Binary
+  /**
+   * 文件名
+   */
+  name: string
+  /**
+   * 文件大小
+   */
+  size: number
+}
+
+
+/**
+ * 权限
+ */
+export enum UserRole {
+  /**
+   * 招聘人
+   */
+  Employer = 1,
+  /**
+   * 应聘人
+   */
+  User = 2,
+}
+
+/**
+ * 性别
+ */
+export enum UserSex {
+  /**
+   * 男
+   */
+  Man = 1,
+  /**
+   * 女
+   */
+  Woman = 2,
 }
 
 /**

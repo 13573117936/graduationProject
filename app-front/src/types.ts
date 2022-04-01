@@ -124,6 +124,26 @@ export interface ICompany {
 }
 
 /**
+ * 收藏
+ */
+ export interface ICollection {
+  // id
+  _id: string;
+  /**
+   * 用户ID
+   */
+  userId: string;
+  /**
+   * 收藏时间
+   */
+  time: Date
+  /**
+   * 职位ID
+   */
+  jobId: string;
+}
+
+/**
  * 权限
  */
 export enum UserRole {

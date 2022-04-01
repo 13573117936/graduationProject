@@ -1,20 +1,26 @@
 import react, { useEffect, useState, useCallback } from "react";
 import "antd/dist/antd.css";
-import { Form, Input, Button, Checkbox } from "antd";
-import { Link } from "react-router-dom";
+import { Form, Input, Button } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 import IconFont from "../../assets/icon";
 import * as userAPI from "../../services/user.service";
+import Toast from "../../components/Toast";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("employee");
+  const navigate = useNavigate();
 
   async function submit() {
-    // 登录API
-    const registerRes = await userAPI.register(username, password, role);
-    console.log(registerRes);
+    // 注册API
+    if (!username || !password) {
+      Toast("请输入用户名和密码");
+    } else {
+      const registerRes = await userAPI.register(username, password, role);
+      navigate("/main");
+    }
   }
 
   useEffect(() => {}, []);

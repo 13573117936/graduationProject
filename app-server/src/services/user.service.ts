@@ -40,7 +40,7 @@ export async function login(record: IUser) {
   const hash = crypto.createHash("sha1");
   hash.update(record.password);
   record.password = hash.digest("hex");
-  
+
   if (user.password !== record.password) {
     throw stats.ERR_LOGIN_FAILED;
   }
@@ -74,4 +74,47 @@ export async function getDetail(_id: string) {
   });
   if (!user) throw stats.ERR_NOT_FOUND;
   return user;
+}
+
+// 头像上传
+export async function upload(
+  token: string,
+  path: string,
+  size: number,
+  name: string
+) {
+  const _id = tokens.get(token);
+  const key = crypto.randomBytes(16).toString("hex");
+  const data = await fs.promises.readFile(path);
+  await db.fileCollection.insertOne({
+    key: key,
+    data: new Binary(data),
+    size: size,
+    name: name,
+  });
+  await db.userCollection.findOneAndUpdate(
+    {
+      _id: new ObjectId(_id),
+    },
+    {
+      $set: {
+        avatar: key,
+      },
+    }
+  );
+  await fs.promises.unlink(path);
+  return key;
+}
+
+/**
+ * 查找文件
+ * @param key
+ * @returns
+ */
+export async function download(key: string) {
+  const result = await db.fileCollection.findOne({
+    key: key,
+  });
+  if (!result) throw stats.ERR_NOT_FOUND;
+  return result;
 }
